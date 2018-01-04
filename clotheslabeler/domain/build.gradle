@@ -1,0 +1,32 @@
+apply plugin: 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+    }
+}
+
+apply plugin: 'me.tatarka.retrolambda'
+
+// Required because retrolambda is on maven central
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'io.reactivex:rxjava:' + project.ext.rxJavaVersion
+    compile 'junit:junit:4.12'
+}
+
+retrolambda {
+    jdk System.getenv("JAVA8_HOME")
+    defaultMethods true
+    incremental false
+}
+
+//sourceCompatibility = "1.7"
+//targetCompatibility = "1.7"
